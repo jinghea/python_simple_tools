@@ -13,8 +13,9 @@ def do_with_first_ip(ec2):
 
 	for reservation in reservations:
 		for instance in reservation['Instances']:
-			yield instance['PublicIpAddress']
-			return
+			if(instance['State']['Name']=='running'):
+				yield instance['PublicIpAddress']
+				return
 
 def load_config():
 	config = configparser.ConfigParser()
